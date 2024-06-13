@@ -1,17 +1,18 @@
 
 # Car Rental Reservation System
 ## Key Features
-1. ### Authentication and Authorization
-- Secure sign-in and sign-up for users and admins using JWT.
-- Role-based access control for different functionalities.
-Admin Capabilities
+##1. ### Authentication and Authorization
+      - Secure sign-in and sign-up for users and admins using JWT.
+      - Role-based access control for different functionalities.
 
-Create, update, and delete car listings.
-View all bookings and update the end time of a booking.
-User Capabilities
-
-View all available cars and specific car details.
-Book a car and view personal bookings.
+## 2. ### Admin Capabilities
+    - Create, update, and delete car listings.
+    - View all bookings and update the end time of a booking.
+    
+## 3. ### User Capabilities
+    - View all available cars and specific car details.
+    - Book a car and view personal bookings.
+    
 Technology Stack
 Backend: TypeScript, Express.js
 Authentication: JWT (JSON Web Tokens), bcrypt
