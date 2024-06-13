@@ -15,10 +15,10 @@
     - Book a car and view personal bookings.
     
 ## Technology Stack
-#### - Backend: TypeScript, Express.js
-### - Authentication: JWT (JSON Web Tokens), bcrypt
-### - Database: MongoDB with Mongoose ODM
-### - Validation: Joi for type validation
+###- Backend: #### TypeScript, Express.js
+### - Authentication:  #### JWT (JSON Web Tokens), bcrypt
+### - Database:  #### MongoDB with Mongoose ODM
+### - Validation:  #### Joi for type validation
 
 ## API Endpoints
 1. User Authentication
