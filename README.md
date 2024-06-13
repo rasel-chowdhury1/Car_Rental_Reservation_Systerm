@@ -16,7 +16,7 @@
     
 ## Technology Stack
 ###- Backend: #### TypeScript, Express.js
-### - Authentication:  <p> JWT (JSON Web Tokens), bcrypt<p>
+### - Authentication:  <span> JWT (JSON Web Tokens), bcrypt</span>
 ### - Database:  #### MongoDB with Mongoose ODM
 ### - Validation:  #### Joi for type validation
 
