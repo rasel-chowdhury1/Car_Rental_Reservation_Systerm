@@ -1,10 +1,9 @@
 
 # Car Rental Reservation System
 ## Key Features
-Authentication and Authorization
-
-Secure sign-in and sign-up for users and admins using JWT.
-Role-based access control for different functionalities.
+1. ### Authentication and Authorization
+- Secure sign-in and sign-up for users and admins using JWT.
+- Role-based access control for different functionalities.
 Admin Capabilities
 
 Create, update, and delete car listings.
