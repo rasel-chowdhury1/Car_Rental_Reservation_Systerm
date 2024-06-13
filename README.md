@@ -15,10 +15,10 @@
     - Book a car and view personal bookings.
     
 ## Technology Stack
-** Backend:** TypeScript, Express.js
-### - Authentication:  JWT (JSON Web Tokens), bcrypt
-### - Database:  MongoDB with Mongoose ODM
-### - Validation:  Joi for type validation
+- **Backend**: TypeScript, Express.js
+- **Authentication**: JWT (JSON Web Tokens), bcrypt
+- **Database**: MongoDB with Mongoose ODM
+- **Validation**: Joi for type validation
 
 ## API Endpoints
 ### 1. User Authentication
@@ -69,8 +69,9 @@ To use this project, follow these steps:
     Create a `.env` file in the root directory with the following content:
 
     ```plaintext
-    MONGODB_URI=mongodb://localhost:27017/car-rental
-    JWT_SECRET=your_jwt_secret
+    DATABASE_URL = Your_Database_Url
+    BCRYPT_SOLT_ROUNDS = 12
+    JWT_ACCESS_SECRET = your_jwt_secret
     PORT=3000
     ```
 
