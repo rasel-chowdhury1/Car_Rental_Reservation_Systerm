@@ -1,6 +1,6 @@
 
 # Car Rental Reservation System
-Key Features
+## Key Features
 Authentication and Authorization
 
 Secure sign-in and sign-up for users and admins using JWT.
