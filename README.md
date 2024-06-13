@@ -41,11 +41,11 @@
 #### - **User Actions** (Authorization: User Bearer Token)
   - Create Booking: POST /api/bookings
   - Get User's Bookings: GET /api/bookings/my-bookings
-Getting Started
-To use this project, follow these steps:
+  - 
+## Getting Started
+<p>To use this project, follow these steps:</p>
 
-Clone the repository:
-
+<p>1. Clone the repository </p>
 bash
 Copy code
 git clone <repository-url>
