@@ -14,8 +14,8 @@
     - View all available cars and specific car details.
     - Book a car and view personal bookings.
     
-### Technology Stack
-### - Backend: TypeScript, Express.js
+## Technology Stack
+#### - Backend: TypeScript, Express.js
 ### - Authentication: JWT (JSON Web Tokens), bcrypt
 ### - Database: MongoDB with Mongoose ODM
 ### - Validation: Joi for type validation
