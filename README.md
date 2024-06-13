@@ -22,10 +22,10 @@
 
 ## API Endpoints
 ### 1. User Authentication
- -Sign In
-   -POST /api/auth/signin
- -Sign Up
-   -POST /api/auth/signup
+ - Sign In
+   - POST /api/auth/signin
+ - Sign Up
+   - POST /api/auth/signup
 ### 2. Cars Management
 #### - Admin Actions (Authorization: Admin Bearer Token)
  - Create Car: POST /api/cars
@@ -38,7 +38,7 @@
 #### - Admin Actions (Authorization: Admin Bearer Token)
    - Get All Bookings (Search by carId and date): GET /api/bookings?carId=...&date=...
    - Update Booking End Time: PUT /api/bookings/return
-#### - User Actions (Authorization: User Bearer Token)
+#### - **User Actions** (Authorization: User Bearer Token)
   - Create Booking: POST /api/bookings
   - Get User's Bookings: GET /api/bookings/my-bookings
 Getting Started
