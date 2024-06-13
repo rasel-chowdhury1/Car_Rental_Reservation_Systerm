@@ -61,8 +61,9 @@ Run the development server:
 bash
 Copy code
 npm start
-Feedback
-If you have any feedback or encounter any issues, please don't hesitate to inform us.
 
-Thank you for using our Car Rental Reservation System!
+## Feedback
+<p>If you have any feedback or encounter any issues, please don't hesitate to inform us.</p>
+
+<p>Thank you for using our Car Rental Reservation System!</p>
 
