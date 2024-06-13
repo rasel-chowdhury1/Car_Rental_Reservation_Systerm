@@ -43,24 +43,46 @@
   - Get User's Bookings: GET /api/bookings/my-bookings
   - 
 ## Getting Started
-<p>To use this project, follow these steps:</p>
 
-<p>1. Clone the repository </p>
-bash
-Copy code
-git clone <repository-url>
-Install the dependencies:
+To use this project, follow these steps:
 
-bash
-Copy code
-npm install
-Set up environment variables for MongoDB connection, JWT secret, etc.
+1. **Clone the repository:**
 
-Run the development server:
+    ```bash
+    git clone <repository-url>
+    ```
 
-bash
-Copy code
-npm start
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd car-rental
+    ```
+
+3. **Install the dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+4. **Set up environment variables:**
+
+    Create a `.env` file in the root directory with the following content:
+
+    ```plaintext
+    MONGODB_URI=mongodb://localhost:27017/car-rental
+    JWT_SECRET=your_jwt_secret
+    PORT=3000
+    ```
+
+5. **Run the development server:**
+
+    ```bash
+    npm start
+    ```
+
+6. **Access the application:**
+
+    Open your browser and go to `http://localhost:3000`.
 
 ## Feedback
 <p>If you have any feedback or encounter any issues, please don't hesitate to inform us.</p>
