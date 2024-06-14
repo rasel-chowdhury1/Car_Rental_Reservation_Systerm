@@ -13,13 +13,15 @@ const auth = (...requiredRules: TUserRole[]) => {
     return catchAsync( async (req: Request,res: Response, next: NextFunction) => {
 
         console.log(req.headers.authorization)
-        const token = req.headers.authorization;
+        const token = req.headers.authorization?.split(" ")[1] as string;
         
         //check if the token is sent from the client
         if(!token){
-           throw new AppError(httpStatus.UNAUTHORIZED,
-            "You are not Authorized!!!"
-           )
+            res.status(401).json({
+                success: false,
+                statusCode: httpStatus.UNAUTHORIZED,
+                message: "You have no access to this route",
+              })
         }
 
         //check if the token is valid
@@ -41,18 +43,22 @@ const auth = (...requiredRules: TUserRole[]) => {
     
     console.log({isUserExists})
     if(!isUserExists){
-        throw new AppError(httpStatus.NOT_FOUND,
-            "This user is not found!"
-        )
+        res.status(401).json({
+            success: false,
+            statusCode: httpStatus.UNAUTHORIZED,
+            message: "This user is not exists!!!",
+          })
+
     }
 
 
 
         if(requiredRules && !requiredRules.includes(role)){
-          throw new AppError(
-            httpStatus.UNAUTHORIZED,
-            "You are not authorized hi!!!"
-          )
+          res.status(401).json({
+            success: false,
+            statusCode: httpStatus.UNAUTHORIZED,
+            message: "You have no access to this route",
+          })
         }
         req.user = decoded;
 

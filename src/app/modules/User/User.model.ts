@@ -47,8 +47,8 @@ UserSchema.pre('save', async function(next){
 
 // post save middelware/hook : worked on create() save()
 UserSchema.post('save', function(doc, next){
-    doc.password = '',
-    console.log('post hook we saved user data -> ', this)
+    // doc.password = '',
+    // console.log('post hook we saved user data -> ', this)
     next()
   })
 

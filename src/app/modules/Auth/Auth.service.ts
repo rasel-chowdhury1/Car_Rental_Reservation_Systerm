@@ -36,19 +36,13 @@ const loginUser = async (payload: TLoginUser) => {
     const accessToken = jwt.sign(
         jwtPayload,
         config.jwt_access_secret as string,
-        {expiresIn: '1d'}
+        {expiresIn: '30d'}
     )
 
-    // const refreshToken = jwt.sign(
-    //     jwtPayload,
-    //     config.jwt_refresh_secret as string,
-    //     {expiresIn: '10d'}
-    // )
    
     return {
         isUserExists,
         accessToken, 
-        // refreshToken,
     }
     
 }

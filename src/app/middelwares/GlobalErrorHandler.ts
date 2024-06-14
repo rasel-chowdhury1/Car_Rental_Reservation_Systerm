@@ -4,6 +4,9 @@ import { TErrorSource } from "../interface/interface";
 import handleCastError from "../errors/handleCastError";
 import handleDuplicateError from "../errors/handleDuplicateError";
 import AppError from "../errors/AppError";
+import { ZodError } from "zod";
+import handleZodError from "../errors/handleZodError";
+import handleValidationError from "../errors/handleValidationError";
 
 const GlobalErrorHandler : ErrorRequestHandler = 
  (err, req, res, next: NextFunction) => {
@@ -18,7 +21,19 @@ const GlobalErrorHandler : ErrorRequestHandler =
       message: 'Something went wrong',
     }]
 
-    if(err?.name === "CastError"){
+    if (err instanceof ZodError) {
+      const simplifiedError = handleZodError(err);
+      statusCode = simplifiedError?.statusCode;
+      message = simplifiedError?.message;
+      errorSources = simplifiedError?.errorSources;
+    } 
+    else if (err?.name === 'ValidationError') {
+      const simplifiedError = handleValidationError(err);
+      statusCode = simplifiedError?.statusCode;
+      message = simplifiedError?.message;
+      errorSources = simplifiedError?.errorSources;
+    } 
+    else if(err?.name === "CastError"){
       const castError = handleCastError(err);
 
       statusCode = castError.statusCode;

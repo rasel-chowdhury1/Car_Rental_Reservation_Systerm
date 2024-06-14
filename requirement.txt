@@ -1,0 +1,58 @@
+###Car Rental Reservation System
+Key features: 
+   -> Authentication and Authoraization.
+   -> Admin can create,update and delete car.Just User can see all and specific cars list.
+   -> User can Booking car and see her bookings.Admin can see all booking and update end time.
+
+Technology:
+   -> Typescript,Express,jwt,bcrypt
+   -> Mongoose as the Object Data Modeling (ODM) and 
+      validation library for MongoDB
+   -> Type validation Using Joi
+
+Api EndPoints:
+   1.User:
+   Using SignIn and SignUp api for user and Admin
+   Post -> http://localhost:3000/api/auth/signin
+   Post -> http://localhost:3000/api/auth/signup
+   
+   2.Cars: 
+   Using cars api for create,update and soft delete specific by Admin.Set Authoraization admin Bearer token in headers
+   Post -> http://localhost:3000/api/cars =>pass data in body
+   Put -> http://localhost:3000/api/cars/${carId} => pass update data in body
+   Delete -> http://localhost:3000/api/cars/${carId}
+
+   * get all and specific car by anyone
+        all cars get -> http://localhost:3000/api/cars 
+        specific cars get -> http://localhost:3000/api/cars/${carId}
+
+   3. Booking:
+    * Admin can get see all and searching by carId and Date booking list and update specific booking endtime and totalCost = (end - start) * pricePerHour.Set Authoraization admin Bearer token in headers
+    
+    get all and searching bookings -> http://localhost:3000/api/bookings/?carId=....&date=...
+
+    put specific booking -> http://localhost:3000/api/cars/return
+
+    *User can create booking and get her booking list. Set Authoraization user Bearer token in headers
+    Post -> http://localhost:3000/api/bookings
+    Get -> http://localhost:3000/api/bookings/my-bookings
+
+
+### If you want use this project.then following this steps:
+  1-> git clone repository url
+  2-> type npm install in terminal
+
+
+### If you have any feedback. Please no hessitate inform me...
+
+Thank you
+
+    
+
+
+  
+
+
+-> Created 3 models : User, Car and Booking
+->User can:
+   

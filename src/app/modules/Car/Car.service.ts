@@ -10,8 +10,7 @@ const CreateCarIntoDB = async (payLoad: TCar) => {
 }
 
 const getAllCarsFromDB = async () => {
-    const result = await CarModel.find();
-
+    const result = await CarModel.find({isDeleted: false});
     return result;
 }
 

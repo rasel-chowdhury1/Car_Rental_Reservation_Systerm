@@ -21,12 +21,22 @@ const getAllCars = catchAsync( async (req, res) => {
 
     const result = await CarServices.getAllCarsFromDB();
     
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Cars retrieved successfully",
-        data: result
-    })
+    if(result.length > 0){
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Cars retrieved successfully",
+            data: result
+        })
+    }
+    else{
+        sendResponse(res, {
+            statusCode: httpStatus.NOT_FOUND,
+            success: false,
+            message: "No Data Found",
+            data: result
+        })
+    }
 })
 
 const getSingleCar = catchAsync( async (req, res) => {

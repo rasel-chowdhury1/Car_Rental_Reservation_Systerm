@@ -4,6 +4,7 @@ import { BookingServices } from "./Booking.service";
 import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
+import NotFound from './../../middelwares/NotFound';
 
 
 const createBooking = catchAsync( async (req: Request, res: Response) => {
@@ -23,14 +24,47 @@ const createBooking = catchAsync( async (req: Request, res: Response) => {
 
 const getAllBooking = catchAsync( async (req: Request, res: Response) => {
 
-    const result = await BookingServices.getAllBookingFromDB()
+    const result = await BookingServices.getAllBookingFromDB(req.query)
+    
+    if(result.length > 0){
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Bookings retrieved successfully",
+            data: result
+        })
+    }
+    else{
+        sendResponse(res, {
+            statusCode: httpStatus.NOT_FOUND,
+            success: false,
+            message: "No Data Found",
+            data: result
+        })
+    }
+    
+}) 
 
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Bookings retrieved successfully",
-        data: result
-    })
+const getSpecificBooking = catchAsync( async (req: Request, res: Response) => {
+
+    const result = await BookingServices.getSpecificUserBookingFromDB(req.user);
+
+    if(result.length > 0){
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "My Bookings retrieved successfully",
+            data: result
+        })
+    }
+    else{
+        sendResponse(res, {
+            statusCode: httpStatus.NOT_FOUND,
+            success: false,
+            message: "No Data Found",
+            data: result
+        })
+    }
 })
 
 const updateEndBookingByAdmin = catchAsync( async (req: Request, res: Response) => {
@@ -48,5 +82,6 @@ const updateEndBookingByAdmin = catchAsync( async (req: Request, res: Response) 
 export const BookingControllers = {
     createBooking,
     getAllBooking,
-    updateEndBookingByAdmin
+    updateEndBookingByAdmin,
+    getSpecificBooking
 }

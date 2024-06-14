@@ -5,9 +5,15 @@ import httpStatus from "http-status";
 import { JwtPayload } from "jsonwebtoken";
 import { UserModel } from "../User/User.model";
 import AppError from "../../errors/AppError";
+import QueryBuilder from "../../builder/QueryBuilder";
 
+type TBook = {
+    carId: string,
+   date: string,
+   startTime: string,
+}
 
-const createBookingIntoDB = async(user: JwtPayload,payLoad) => {
+const createBookingIntoDB = async(user: JwtPayload,payLoad: TBook) => {
     console.log({user, payLoad})
 
     const isUserExists = await UserModel.findById(user.userId);
@@ -51,12 +57,38 @@ const createBookingIntoDB = async(user: JwtPayload,payLoad) => {
 }
 
 
-const getAllBookingFromDB = async () => {
-    const result = await BookingModel.find()
-    return result
+const getAllBookingFromDB = async (query: Record<string,unknown>) => {
+
+    const {carId, date } = query;
+    let result;
+    if(carId || date) {
+        result = await BookingModel.find({
+            $or: [
+                {carId: carId},
+                {date: date}
+            ]
+        })
+    }
+    else{
+        result = await BookingModel.find()
+    }
+
+    
+    return result;
 }
 
-const updateEndBookingByAdminIntoDB = async(payload) => {
+const getSpecificUserBookingFromDB = async (user: JwtPayload) => {
+
+    const result = await BookingModel.find({user: user?.userId});
+    return result;
+}
+
+type TUpdateEndBooking = {
+    bookingId: string,
+    endTime: string
+}
+
+const updateEndBookingByAdminIntoDB = async(payload: TUpdateEndBooking) => {
 
     const { bookingId, endTime } = payload;
 
@@ -112,5 +144,6 @@ const updateEndBookingByAdminIntoDB = async(payload) => {
 export const BookingServices = {
     createBookingIntoDB,
     getAllBookingFromDB,
-    updateEndBookingByAdminIntoDB
+    updateEndBookingByAdminIntoDB,
+    getSpecificUserBookingFromDB
 }
