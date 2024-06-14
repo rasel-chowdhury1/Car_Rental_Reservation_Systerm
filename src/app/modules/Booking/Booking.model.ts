@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import { TBooking } from "./Booking.interface";
-import { string } from "joi";
 
 
 const BookingValidationSchema = new Schema<TBooking>({

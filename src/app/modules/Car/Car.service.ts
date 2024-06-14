@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+
 import { TCar } from "./Car.interface";
 import { CarModel } from "./Car.model";
 

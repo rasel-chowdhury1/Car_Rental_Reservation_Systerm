@@ -1,11 +1,9 @@
-import { Request, Response } from "express";import { BookingModel } from "./Booking.model";
-import { TBooking } from "./Booking.interface";
+import { BookingModel } from "./Booking.model";
 import { CarModel } from "../Car/Car.model";
 import httpStatus from "http-status";
 import { JwtPayload } from "jsonwebtoken";
 import { UserModel } from "../User/User.model";
 import AppError from "../../errors/AppError";
-import QueryBuilder from "../../builder/QueryBuilder";
 
 type TBook = {
     carId: string,
@@ -14,7 +12,7 @@ type TBook = {
 }
 
 const createBookingIntoDB = async(user: JwtPayload,payLoad: TBook) => {
-    console.log({user, payLoad})
+    // console.log({user, payLoad})
 
     const isUserExists = await UserModel.findById(user.userId);
 
@@ -110,7 +108,7 @@ const updateEndBookingByAdminIntoDB = async(payload: TUpdateEndBooking) => {
 
 
      // Calculate the difference in milliseconds
-     let diffMs = endDate - startDate;
+     const diffMs = endDate - startDate;
 
     if(diffMs < 0){
         throw new AppError(httpStatus.NOT_ACCEPTABLE,

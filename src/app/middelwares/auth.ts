@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express"
 import catchAsync from "../utils/catchAsync"
-import AppError from "../errors/AppError"
 import httpStatus from "http-status"
 import jwt, { JwtPayload } from "jsonwebtoken"
 import config from "../config"
@@ -12,7 +11,7 @@ const auth = (...requiredRules: TUserRole[]) => {
     
     return catchAsync( async (req: Request,res: Response, next: NextFunction) => {
 
-        console.log(req.headers.authorization)
+        // console.log(req.headers.authorization)
         const token = req.headers.authorization?.split(" ")[1] as string;
         
         //check if the token is sent from the client
@@ -31,17 +30,17 @@ const auth = (...requiredRules: TUserRole[]) => {
         ) as JwtPayload;
 
         //decoded
-        console.log({decoded});
+        // console.log({decoded});
 
         // const role = decoded.role;
         // const id = decoded.userId;
 
-        const {email, role, iat } = decoded;
+        const {email, role  } = decoded;
 
         //checking if the user is exists
     const isUserExists = await UserModel.findOne({email: email})
     
-    console.log({isUserExists})
+    // console.log({isUserExists})
     if(!isUserExists){
         res.status(401).json({
             success: false,

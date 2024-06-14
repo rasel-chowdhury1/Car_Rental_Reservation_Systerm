@@ -1,5 +1,4 @@
 import Joi from "joi";
-import { Schema } from "mongoose";
 
 const createBookingValidationSchema = Joi.object({
     date: Joi.date()
