@@ -11,9 +11,9 @@ const auth = (...requiredRules: TUserRole[]) => {
     
     return catchAsync( async (req: Request,res: Response, next: NextFunction) => {
 
-        // console.log(req.headers.authorization)
-        const token = req.headers.authorization?.split(" ")[1] as string;
-        
+        console.log("token -> ",req.headers.authorization)
+        const token = req.headers.authorization as string;
+         console.log({token})
         //check if the token is sent from the client
         if(!token){
             res.status(401).json({
@@ -30,7 +30,7 @@ const auth = (...requiredRules: TUserRole[]) => {
         ) as JwtPayload;
 
         //decoded
-        // console.log({decoded});
+        console.log({decoded});
 
         // const role = decoded.role;
         // const id = decoded.userId;

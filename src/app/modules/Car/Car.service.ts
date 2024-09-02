@@ -20,9 +20,12 @@ const getSingleCarFromDB = async (id: string) => {
 }
 
 const updateCarIntoDB = async (id: string, updateData: Partial<TCar>) => {
+    console.log({updateData})
     const result = await CarModel.findByIdAndUpdate(id, updateData, {
         new: true
     })
+
+    console.log("update result -> ", result)
 
     return result
 }

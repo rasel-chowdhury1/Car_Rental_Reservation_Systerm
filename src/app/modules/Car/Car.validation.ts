@@ -10,6 +10,13 @@ const CreateCarValidationSchema = Joi.object({
                 'string.empty': '"Name" cannot be an empty field',
                 'any.required': '"Name" is required',
                 }),
+    photo: Joi.string()
+            .required()
+            .messages({
+            'string.base': '"Name" should be a type of string',
+            'string.empty': '"Name" cannot be an empty field',
+            'any.required': '"Name" is required',
+            }),
     description: Joi.string()
                     .required()
                     .messages({

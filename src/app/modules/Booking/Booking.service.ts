@@ -4,11 +4,17 @@ import httpStatus from "http-status";
 import { JwtPayload } from "jsonwebtoken";
 import { UserModel } from "../User/User.model";
 import AppError from "../../errors/AppError";
+import { initiatePayment } from "../payment/payment.utils";
 
 type TBook = {
     carId: string,
-   date: string,
-   startTime: string,
+   isBooked:string,
+}
+
+type TUpdateEndBooking = {
+    bookingId: string,
+
+    endTime?: string
 }
 
 const createBookingIntoDB = async(user: JwtPayload,payLoad: TBook) => {
@@ -30,7 +36,8 @@ const createBookingIntoDB = async(user: JwtPayload,payLoad: TBook) => {
     }
     
     const isCarExist = await CarModel.findById(payLoad?.carId)
-
+ 
+    console.log({isCarExist});
     if(!isCarExist){
         throw new AppError(httpStatus.NOT_FOUND, 
             "This car not exist"
@@ -46,12 +53,16 @@ const createBookingIntoDB = async(user: JwtPayload,payLoad: TBook) => {
     const newBooking = {
         user: user.userId,
         car: payLoad.carId,
-        date: payLoad.date,
-        startTime: payLoad.startTime
+        isBooked: payLoad.isBooked,
     }
+
+    console.log({newBooking})
     
     const result =  await (await (await BookingModel.create(newBooking)).populate('user')).populate('car');
-    return result;
+    console.log("after booking -> ",{result})
+    
+    return result
+    
 }
 
 
@@ -75,15 +86,104 @@ const getAllBookingFromDB = async (query: Record<string,unknown>) => {
     return result;
 }
 
-const getSpecificUserBookingFromDB = async (user: JwtPayload) => {
+const getSingleBookingFromDB = async (id:string) => {
 
-    const result = await BookingModel.find({user: user?.userId});
+    const result = await BookingModel.findById(id).populate({
+        path: 'car',
+        model: CarModel, 
+      })
+      .exec();;
     return result;
 }
 
-type TUpdateEndBooking = {
-    bookingId: string,
-    endTime: string
+const getSpecificUserBookingFromDB = async (user: JwtPayload) => {
+
+    const result = await BookingModel.find({user: user?.userId}).populate({
+        path: 'car',
+        model: CarModel, 
+      })
+      .exec();
+    return result;
+}
+
+const confirmBookingByUserIntoDB = async(payload: any) => {
+    console.log({payload})
+    const {bookingId,carId,date,startTime,isBooked} = payload;
+    const res = await BookingModel.findByIdAndUpdate(
+        bookingId,
+        {date, startTime, isBooked},
+        {new: true}
+    )
+
+    console.log({res});
+
+    if(res){
+        try {
+            const result = await CarModel.findByIdAndUpdate(
+                carId,
+                {status: "UnAvailable"}
+            )
+            console.log({result})
+        } catch (error) {
+            console.log({error})
+        }
+    }
+    
+
+    return res;
+
+}
+
+
+
+const deletedBookingByUserIntoDB = async( bookingId: string) => {
+    
+    console.log("Received bookingId -> ", bookingId);
+    const existingBooking = await BookingModel.findById(bookingId);
+console.log("Existing booking -> ", existingBooking);
+    const result = await BookingModel.findByIdAndUpdate(
+        bookingId,{
+            isDeleted: true
+        },
+        {new:true}
+    )
+    console.log("after delete booking -> ", result )
+    return result;
+}
+
+
+const returnBookingByUserIntoDB = async(payload : any) => {
+    const {bookingId, endTime, totalCost, user } = payload;
+    const transactionId = `TXN-${Date.now()}`;
+    console.log(" set booking -> ",{transactionId})
+    
+    const result = await BookingModel.findByIdAndUpdate(
+        bookingId, 
+        {
+            endTime,
+            totalCost,
+            transactionId
+        },
+        {new: true}
+    )
+
+
+    const paymentData = {
+        transactionId,
+        totalCost,
+        custormerName: user.name,
+        customerEmail: user.email,
+        customerPhone: user.phone,
+        customerAddress: user.address
+    }
+
+        //payment
+        const paymentSession = await initiatePayment(paymentData);
+
+        console.log(paymentSession)
+    
+        return paymentSession;
+
 }
 
 const updateEndBookingByAdminIntoDB = async(payload: TUpdateEndBooking) => {
@@ -141,7 +241,11 @@ const updateEndBookingByAdminIntoDB = async(payload: TUpdateEndBooking) => {
 
 export const BookingServices = {
     createBookingIntoDB,
+    getSingleBookingFromDB,
     getAllBookingFromDB,
     updateEndBookingByAdminIntoDB,
-    getSpecificUserBookingFromDB
+    getSpecificUserBookingFromDB,
+    returnBookingByUserIntoDB,
+    deletedBookingByUserIntoDB,
+    confirmBookingByUserIntoDB
 }

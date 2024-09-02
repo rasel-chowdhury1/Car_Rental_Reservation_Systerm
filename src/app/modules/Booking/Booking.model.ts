@@ -1,12 +1,13 @@
 import { Schema, model } from "mongoose";
 import { TBooking } from "./Booking.interface";
+import { boolean } from "joi";
 
 
 const BookingValidationSchema = new Schema<TBooking>({
 
     date: {
         type: String,
-        required: true
+        default: null
     },
     user: {
         type: Schema.Types.ObjectId,
@@ -17,7 +18,8 @@ const BookingValidationSchema = new Schema<TBooking>({
         ref: "Car"
     },
     startTime: {
-        type: String
+        type: String,
+        default: null
     },
     endTime: {
         type: String,
@@ -29,8 +31,22 @@ const BookingValidationSchema = new Schema<TBooking>({
     },
     isBooked: {
         type: String,
-        default: "confirmed" 
-    }
+        enum: ['Pending', 'Confirmed', 'Ended'],
+        default: 'Pending'
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
+    paymentStatus: {
+        type: String,
+        enum: ['Pending', 'Paid', 'Failed'],
+        default: 'Pending'
+    },
+    transactionId: {
+        type: String,
+        default: null
+    },
 },
 {
     timestamps: true

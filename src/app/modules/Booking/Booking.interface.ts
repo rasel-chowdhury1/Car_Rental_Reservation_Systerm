@@ -1,11 +1,14 @@
 import { Types } from "mongoose"
 
 export type TBooking = {
-    date: string,
+    date?: string,
     user?: Types.ObjectId,
     car?: Types.ObjectId,
     startTime?: string,
     endTime?: string,
     totalCost?: number,
-    isBooked?: "unconfirmed" | "confirmed" 
+    isBooked?: "Pending" | "Confirmed" | "Ended",
+    isDeleted?: boolean,
+    paymentStatus?:'Pending' | 'Paid' |'Failed' ,
+    transactionId? : string
 }

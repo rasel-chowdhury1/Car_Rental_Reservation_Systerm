@@ -29,7 +29,8 @@ const createBookingValidationSchema = Joi.object({
                   .default(0),
     isBooked: Joi.string()
                  .valid("unconfirmed", "confirmed" )
-                 .optional()
+                 .optional(),
+    
 })
 
 

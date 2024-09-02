@@ -20,6 +20,11 @@ router.get("/:id",
     CarController.getSingleCar
 )
 
+router.put("/:id",
+    auth("admin"),
+    CarController.updateCar
+)
+
 router.patch("/:id",
     auth("admin"),
     CarController.updateCar

@@ -1,5 +1,7 @@
 export type TCar = {
     name: string,
+    model: string,
+    photo: string,
     description: string,
     color: string,
     isElectric: boolean,

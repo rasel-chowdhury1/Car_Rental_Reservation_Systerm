@@ -6,12 +6,15 @@ const createBookingValidationSchema = z.object({
   car: z.string().optional(),
   startTime: z.string()
               .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, { message: 'The time format must be in HH:MM (24-hour) format' })
-              .min(1, { message: 'The time is required' }),
+              .optional(),
   endTime: z.string()
             .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, { message: 'The time format must be in HH:MM (24-hour) format' })
             .optional(),
   totalCost: z.number().default(0),
-  isBooked: z.enum(["unconfirmed", "confirmed"]).optional()
+  isBooked: z.enum(["Pending", "Confirmed", "Ended"]).optional(),
+  isDeletd: z.boolean().optional(),
+  paymentStatus: z.enum(['Pending', 'Paid', 'Failed']).optional(),
+  transactionId: z.string().optional()
 });
 
 export const BookingValidationsZod = {
