@@ -19,7 +19,7 @@
 - **Backend**: TypeScript, Express.js
 - **Authentication**: JWT (JSON Web Tokens), bcrypt
 - **Database**: MongoDB with Mongoose ODM
-- **Validation**: Joi for type validation
+- **Validation**: Zod for type validation
 
 ## API Endpoints
 
@@ -91,7 +91,7 @@ To use this project, follow these steps:
 
 6. **Access the application:**
 
-    Open your browser and go to `http://localhost:3000`.
+    Open your browser and go to `https://car-rental-reservation-system-phi.vercel.app`.
 
 ## Feedback
 
