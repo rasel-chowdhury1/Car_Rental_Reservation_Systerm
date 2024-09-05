@@ -9,7 +9,8 @@ const loginUser = catchAsync( async (req: Request, res: Response) => {
     const result = await AuthServices.loginUser(req.body);
     const {isUserExists, accessToken} = result;
 
-    const {password, ...remainData} = isUserExists._doc;
+    const userData = isUserExists.toObject();
+    const { password, ...remainData } = userData;
 
     // sendResponse(res, {
     //     statusCode: httpStatus.OK,

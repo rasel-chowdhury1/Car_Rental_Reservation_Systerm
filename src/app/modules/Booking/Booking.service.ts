@@ -201,14 +201,18 @@ const updateEndBookingByAdminIntoDB = async(payload: TUpdateEndBooking) => {
 
     // Create Date objects for the current date and the provided times
     const currentDate = new Date();
-    const [startHour, startMinute] = isBookingExists?.startTime?.split(':').map(Number);
-    const [endHour, endMinute] = endTime.split(':').map(Number);
+    const [startHour, startMinute] = isBookingExists?.startTime 
+  ? isBookingExists.startTime.split(':').map(Number) 
+  : [0, 0];
+  const [endHour, endMinute] = endTime 
+  ? endTime.split(':').map(Number) 
+  : [0, 0];
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), startHour, startMinute);
     const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), endHour, endMinute);
 
 
      // Calculate the difference in milliseconds
-     const diffMs = endDate - startDate;
+     const diffMs = endDate.getTime() - startDate.getTime();
 
     if(diffMs < 0){
         throw new AppError(httpStatus.NOT_ACCEPTABLE,
